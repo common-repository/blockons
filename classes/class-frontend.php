@@ -75,6 +75,19 @@ class Blockons_Frontend {
         if ( isset( $blockonsOptions->tooltips->enabled ) && $blockonsOptions->tooltips->enabled == true ) {
             $classes[] = sanitize_html_class( 'blockons-tooltips' );
         }
+        // Global Lightbox
+        if ( isset( $blockonsOptions->imagepopups->enabled ) && $blockonsOptions->imagepopups->enabled == true ) {
+            $classes[] = sanitize_html_class( 'blockons-popups' );
+            if ( isset( $blockonsOptions->imagepopups->enable_all ) && $blockonsOptions->imagepopups->enable_all == true ) {
+                $classes[] = sanitize_html_class( 'global' );
+                $classes[] = sanitize_html_class( 'blcks-' . ($blockonsOptions->imagepopups->icon ?? 'one') );
+                $classes[] = sanitize_html_class( 'blcks-' . ($blockonsOptions->imagepopups->iconpos ?? 'topleft') );
+                $classes[] = sanitize_html_class( 'blcks-' . ($blockonsOptions->imagepopups->iconcolor ?? 'dark') );
+            }
+            if ( isset( $blockonsOptions->imagepopups->popuptheme ) ) {
+                $classes[] = sanitize_html_class( 'popup-' . ($blockonsOptions->imagepopups->popuptheme ?? 'dark') );
+            }
+        }
         return $classes;
     }
 
@@ -128,6 +141,19 @@ class Blockons_Frontend {
             ),
         );
         $html = '<div id="blockons-scroll-indicator"></div>';
+        echo wp_kses( $html, $allowed_html );
+    }
+
+    /**
+     * Add SiteBy Element
+     */
+    public function blockons_pro_add_footer_siteby() {
+        $allowed_html = array(
+            'div' => array(
+                'id' => array(),
+            ),
+        );
+        $html = '<div id="blockons-siteby"></div>';
         echo wp_kses( $html, $allowed_html );
     }
 

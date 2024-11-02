@@ -11,7 +11,7 @@
 	a.add_to_cart_button:hover{opacity:.8}.blockons-wc-featured-product-detail
 	.blockons-wc-featured-product-btn
 	.wc-fproduct-button
-	a.added_to_cart{display:none!important}.blockons-wc-featured-product-image{background-position:50%;background-repeat:no-repeat;background-size:cover}.blockons-wc-featured-product-image img{display:block;margin:0;opacity:0;visibility:hidden}.wp-block-blockons-wc-featured-product.layout-one
+	a.added_to_cart{display:none!important}.blockons-wc-featured-product-image{background-position:50%;background-repeat:no-repeat;background-size:cover}.blockons-wc-featured-product-image img{display:block;height:auto;margin:0;max-width:100%;opacity:0;visibility:hidden}.wp-block-blockons-wc-featured-product.layout-one
 	.blockons-wc-featured-product-detail{order:1;padding:15px 30px;padding-right:20px!important;text-align:left;width:50%}.wp-block-blockons-wc-featured-product.layout-one
 	.blockons-wc-featured-product-image{flex:1;order:2}.wp-block-blockons-wc-featured-product.layout-two
 	.blockons-wc-featured-product-block{position:relative}.wp-block-blockons-wc-featured-product.layout-two

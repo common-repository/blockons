@@ -38,6 +38,13 @@ class Blockons_WC_Rest_Routes {
 				'callback' => [$this, 'blockons_get_wc_product_by_id'],
 				'permission_callback' => [$this, 'blockons_get_settings_permission'],
 			]);
+
+			// Quickview Product
+			register_rest_route('blcns/v1', '/product-data/(?P<id>\d+)', [
+				'methods' => 'GET',
+				'callback' => [$this, 'blockons_get_product_data_by_id'],
+				'permission_callback' => [$this, 'blockons_get_settings_permission'],
+			]);
 		}
 
 		register_rest_route( 'blcns/v1', '/post/(?P<id>\d+)', [
@@ -76,6 +83,51 @@ class Blockons_WC_Rest_Routes {
 			},
 		) );
 	}
+
+	public function blockons_get_product_data_by_id( $request ) {
+        try {
+            $product_id = intval( $request->get_param( 'id' ) );
+            $product = wc_get_product($product_id);
+
+            if ( ! $product ) {
+                return new WP_REST_Response( [ 'message' => 'Product not found.' ], 404 );
+            }
+
+            // Prepare the product data for the REST response.
+            $response = [
+                'id'           => $product->get_id(),
+                'title'        => $product->get_name(),
+                'short_desc'   => $product->get_short_description(),
+                'description'  => $product->get_description(),
+                'price'        => $product->get_price_html(),
+                'sku'          => $product->get_sku(),
+                'image'        => wp_get_attachment_image_url( $product->get_image_id(), 'full' ),
+                'permalink'    => $product->get_permalink(),
+                'add_to_cart_form' => $this->get_add_to_cart_form($product),
+            ];
+
+            return new WP_REST_Response( $response, 200 );
+
+        } catch ( Exception $e ) {
+            return new WP_REST_Response( [ 'message' => 'An error occurred while fetching product data: ' . $e->getMessage() ], 500 );
+        }
+    }
+
+    private function get_add_to_cart_form($product) {
+        ob_start();
+        try {
+            global $post;
+            $post = get_post($product->get_id());
+            setup_postdata($post);
+            woocommerce_template_single_add_to_cart();
+            wp_reset_postdata();
+        } catch ( Exception $e ) {
+            error_log( 'Error in get_add_to_cart_form: ' . $e->getMessage() );
+        }
+        $form_html = ob_get_clean();
+        
+        return $form_html;
+    }
 
 	/*
 	 * Get saved options from database
@@ -127,7 +179,7 @@ class Blockons_WC_Rest_Routes {
 	/*
 	 * Get & Sort posts for 'Post Select' Component
 	 */
-	function blockons_get_wc_products($request) {
+	public function blockons_get_wc_products($request) {
 		$all_products = array();
 
 		$products = get_posts( array(

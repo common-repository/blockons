@@ -14,7 +14,18 @@ class Blockons_Notices {
 	public function __construct() {
 		add_action( 'admin_init', array($this, 'blockons_dismiss_notice' ), 0);
 		add_action( 'admin_notices', array($this, 'blockons_add_update_notice' ));
+
+		add_action( 'in_plugin_update_message-blockons/blockons.php', array($this, 'blockons_plugin_changes_update_notice'), 10, 2 );
 	} // End __construct ()
+
+	/**
+	 * Pre-Update Notice
+	 */
+	public function blockons_plugin_changes_update_notice($plugin_data, $response) { ?>
+		<div>
+			<strong><?php esc_html_e("Heads up!", "blockons") ?></strong> <?php esc_html_e("The next update includes big changes with Image Popups, you will need to reconfigure Image Popups if you've used them!", "blockons") ?>
+		</div><?php
+	}
 
 	/**
 	 * Add notices
@@ -51,7 +62,7 @@ class Blockons_Notices {
 								<?php endif; ?>
 
 								<?php if (isset($notice['link']) && isset($notice['link_text'])) : ?>
-									<a href="<?php echo esc_url($notice['link']); ?>" class="blockons-notice-btn">
+									<a href="<?php echo esc_url($notice['link']); ?>" target="_blank" class="blockons-notice-btn">
 										<?php esc_html_e($notice['link_text']); ?>
 									</a>
 								<?php endif; ?>
@@ -83,14 +94,24 @@ class Blockons_Notices {
 			return;
 
 		$settings = array();
-		
+
 		$settings['new_blocks_added'] = array(
-			'id'    => 'newblocks_006', // Increment this when adding new blocks
+			'id'    => 'newblocks_008', // Increment this when adding new blocks
 			'type'  => 'info', // info | error | warning | success
-			'title' => __( 'New Dynamic Content Selector & Tab blocks have been added to the Blockons plugin', 'blockons' ),
-			'text'  => __( 'To enable the new blocks and start using them in the WordPress editor:', 'blockons' ),
-			'link'  => admin_url( 'options-general.php?page=blockons-settings' ),
-			'link_text' => __( 'Go to the Blockons settings', 'blockons' ),
+			'title' => __( 'New \'Table of Contents\' block added', 'blockons' ),
+			'text'  => __( 'Please go to the Blockons settings to enable it in the editor if you want to use it.', 'blockons' ),
+			'link'  => admin_url( 'options-general.php?page=blockons-settings' ), // admin_url( 'options-general.php?page=blockons-settings' ),
+			'link_text' => __( 'Go to Blockons Settings', 'blockons' ),
+			'inline' => true, // To display the link & text inline
+		);
+
+		$settings['new_big_update'] = array(
+			'id'    => 'newblocks_007', // Increment this when adding new blocks
+			'type'  => 'warning', // info | error | warning | success
+			'title' => __( 'Please Note! Blockons Plugin Update!', 'blockons' ),
+			'text'  => __( '<b>If you\'ve just installed Blockons, please ignore this message.</b> - Updates & Improvements have been made to Blockons Popup Images the Image blocks. Please check over these blocks to ensure they are working as expected. Apologies if any inconvenience caused.', 'blockons' ),
+			'link'  => 'https://blockons.com/blockons-latest-updates/', // admin_url( 'options-general.php?page=blockons-settings' ),
+			'link_text' => __( 'Read more on this', 'blockons' ),
 			'inline' => true, // To display the link & text inline
 		);
 

@@ -21,6 +21,10 @@ $sliderOptions = array(
 		"prevEl" => ".swiper-button-prev",
 		"nextEl" => ".swiper-button-next",
 	) : false,
+	"autoplay" => isset($attributes['autoplay']) && $attributes['autoplay'] == true ? array(
+		"delay" => isset($attributes['autoplayDelay']) ? $attributes['autoplayDelay'] : 4000,
+		"disableOnInteraction" => isset($attributes['autoplayDisable']) && $attributes['autoplayDisable'] == true ? true : false,
+	) : false,
 	"pagination" => isset($attributes['pagination']) && $attributes['pagination'] == true ? array(
 		"el" => ".swiper-pagination",
 		"type" => $attributes['paginationStyle'] == "fraction" ? "fraction" : "bullets",
@@ -36,11 +40,11 @@ $sliderOptions = array(
 				<?php foreach ($attributes['sliderSlides'] as $i => $slide) { ?>
 					<div class="swiper-slide">
 						<div class="swiper-slide-inner">
-							<div class="blockons-slider-img <?php echo ((isset($attributes['forceFullWidth']) && $attributes['forceFullWidth'] == true) || (isset($attributes['imageProportion']) && $attributes['imageProportion'] != "actual")) ? sanitize_html_class("imgfull") : ""; ?>" <?php echo isset($attributes['imageProportion']) && $attributes['imageProportion'] != "actual" ? 'style="background-image: url(' . $slide['imageUrl'] . ');"' : ''; ?>>
-								<?php if ((isset($attributes['imageProportion']) && $attributes['imageProportion'] == "actual") && $slide['imageUrl']) : ?>
-									<img src="<?php echo esc_url($slide['imageUrl']); ?>" alt="<?php echo esc_attr($slide['imageAlt']); ?>" />
-								<?php else : ?>
-									<img src="<?php echo esc_url(BLOCKONS_PLUGIN_URL . 'assets/images/' . $attributes['imageProportion'] . '.png'); ?>" alt="<?php echo esc_attr($slide['imageAlt']); ?>" />
+							<div class="blockons-slider-img <?php echo ((isset($attributes['forceFullWidth']) && $attributes['forceFullWidth'] == true) || (isset($attributes['imageProportion']) && $attributes['imageProportion'] != "actual")) ? sanitize_html_class("imgfull") : ""; ?> <?php echo isset($attributes['imageProportion']) && $attributes['imageProportion'] != "actual" ? esc_attr("aspect-ratio ratio-" . $attributes['imageProportion']) : (isset($slide['imageUrl']) ? "" : esc_attr("aspect-ratio ratio-169panoramic")); ?> <?php echo isset($slide['imageUrl']) ? "" : "noimg"; ?>">
+								<?php if ($slide['imageUrl']) : ?>
+									<div class="aspect-img">
+										<img src="<?php echo esc_url($slide['imageUrl']); ?>" alt="<?php echo esc_attr($slide['imageAlt']); ?>" />
+									</div>
 								<?php endif; ?>
 							</div>
 

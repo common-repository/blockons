@@ -28,7 +28,7 @@
     },
     "innerPadding": {
       "type": "number",
-      "default": 30
+      "default": 15
     },
     "layout": {
       "type": "string",

@@ -1,6 +1,14 @@
 .wp-block-blockons-image-gallery,.wp-block-blockons-image-gallery .blockons-gallery .blockons-gallery-item{position:relative}.wp-block-blockons-image-gallery
 	.blockons-gallery
-	.blockons-gallery-item:hover{z-index:11}.wp-block-blockons-image-gallery .blockons-gallery .blockons-gallery-img,.wp-block-blockons-image-gallery .blockons-gallery .blockons-gallery-item{background-color:#f0f0f0;background-position:50%;background-repeat:no-repeat;background-size:cover;overflow:hidden}.wp-block-blockons-image-gallery .blockons-gallery .blockons-gallery-item img{display:block;margin:0!important}.wp-block-blockons-image-gallery .blockons-gallery.grid{grid-gap:10px;display:grid;grid-template-columns:repeat(4,1fr)}.wp-block-blockons-image-gallery
+	.blockons-gallery-item:hover{z-index:11}.wp-block-blockons-image-gallery .blockons-gallery .blockons-gallery-img,.wp-block-blockons-image-gallery .blockons-gallery .blockons-gallery-item{background-color:#f0f0f0;background-position:50%;background-repeat:no-repeat;background-size:cover;overflow:hidden}.wp-block-blockons-image-gallery .blockons-gallery .blockons-gallery-item img{display:block;height:auto;margin:0!important;max-width:100%}.wp-block-blockons-image-gallery .aspect-ratio{position:relative;width:100%}.wp-block-blockons-image-gallery .aspect-ratio:after{content:"";display:block}.wp-block-blockons-image-gallery .aspect-ratio .aspect-img{bottom:0;left:0;position:absolute;right:0;top:0}.wp-block-blockons-image-gallery
+	.blockons-gallery-item.grid
+	.blockons-gallery-img.aspect-ratio
+	.aspect-img
+	img,.wp-block-blockons-image-gallery
+	.blockons-gallery-item.masonry
+	.blockons-gallery-img.aspect-ratio
+	.aspect-img
+	img{height:100%;-o-object-fit:cover;object-fit:cover;width:100%}.wp-block-blockons-image-gallery .ratio-32rectangle:after{padding-top:66.67%}.wp-block-blockons-image-gallery .ratio-43rectangle:after{padding-top:75%}.wp-block-blockons-image-gallery .ratio-169panoramic:after{padding-top:56.25%}.wp-block-blockons-image-gallery .ratio-square:after{padding-top:100%}.wp-block-blockons-image-gallery .blockons-gallery-img.aspect-ratio img{height:100%;-o-object-fit:cover;object-fit:cover;width:100%}.wp-block-blockons-image-gallery .blockons-gallery.grid{display:grid;grid-template-columns:repeat(4,1fr);grid-gap:10px}.wp-block-blockons-image-gallery
 	.blockons-gallery.grid.imgfull
 	.blockons-gallery-item
 	img{height:auto;width:100%}.wp-block-blockons-image-gallery .blockons-gallery.masonry{display:flex;flex-direction:row;flex-wrap:wrap;margin:0 -10px}.wp-block-blockons-image-gallery
@@ -8,7 +16,7 @@
 	.blockons-gallery-item.masonry{box-sizing:border-box;flex-direction:column;margin:0 10px 20px;width:calc(25% - 20px)}.wp-block-blockons-image-gallery
 	.blockons-gallery.masonry.imgfull
 	.blockons-gallery-item
-	img{height:auto;width:100%}.wp-block-blockons-image-gallery .blockons-gallery.featured{grid-gap:10px;grid-gap:8px;display:grid;grid-auto-rows:30vw;grid-template-columns:repeat(4,1fr);grid-template-columns:repeat(2,1fr);list-style:none}.wp-block-blockons-image-gallery
+	img{height:auto;width:100%}.wp-block-blockons-image-gallery .blockons-gallery.featured{grid-template-columns:repeat(4,1fr);grid-gap:10px;display:grid;grid-gap:8px;grid-auto-rows:30vw;grid-template-columns:repeat(2,1fr);list-style:none}.wp-block-blockons-image-gallery
 	.blockons-gallery.featured
 	.blockons-gallery-item.featured:nth-child(5n+5){grid-column:1/-1;grid-row:span 2}.wp-block-blockons-image-gallery
 	.blockons-gallery.featured
@@ -268,10 +276,12 @@
 	.blockons-gallery-caption{background-color:inherit;position:relative;z-index:4}.wp-block-blockons-image-gallery
 	.blockons-gallery.effect-border
 	.blockons-gallery-item
-	.blockons-gallery-img{box-shadow:none;transition:box-shadow .3s ease-in-out 0s}.wp-block-blockons-image-gallery
+	.blockons-gallery-img
+	img{box-shadow:none;transition:box-shadow .3s ease-in-out 0s}.wp-block-blockons-image-gallery
 	.blockons-gallery.effect-border
 	.blockons-gallery-item:hover
-	.blockons-gallery-img{box-shadow:inset 0 0 0 12px rgba(0,0,0,.14),inset 0 0 0 2px rgba(0,0,0,.18)}.wp-block-blockons-image-gallery
+	.blockons-gallery-img
+	img{box-shadow:inset 0 0 0 12px rgba(0,0,0,.14),inset 0 0 0 2px rgba(0,0,0,.18)}.wp-block-blockons-image-gallery
 	.blockons-gallery.effect-shadow
 	.blockons-gallery-item{overflow:visible}.wp-block-blockons-image-gallery
 	.blockons-gallery.effect-shadow
@@ -289,37 +299,37 @@
 	.blockons-gallery-item:hover
 	.blockons-gallery-item-inner{box-shadow:0 0 8px rgba(0,0,0,.5);left:-3px;top:-3px}body.blockons-pro
 	.wp-block-blockons-image-gallery
-	.blockons-gallery-img.blockons-galvenobox{cursor:zoom-in;position:relative}body.blockons-pro
+	.blockons-gallery-img.blockons-popup{cursor:pointer;position:relative}body.blockons-pro
 	.wp-block-blockons-image-gallery
-	.blockons-gallery-img.blockons-galvenobox:before{align-items:center;border-radius:4px;display:flex;font-family:Font Awesome\ 5 Free;font-size:19px;font-weight:900;height:32px;justify-content:center;opacity:0;position:absolute;transition:opacity .3s ease-in-out;width:32px;z-index:99}body.blockons-pro
+	.blockons-gallery-img.blockons-popup:before{align-items:center;border-radius:3px;box-shadow:0 1px 5px rgba(0,0,0,.2);display:flex;font-family:Font Awesome\ 6 Free;font-size:13px;font-weight:900;height:28px;justify-content:center;opacity:0;position:absolute;transition:opacity .3s ease-in-out;width:28px;z-index:99}body.blockons-pro
 	.wp-block-blockons-image-gallery
-	.blockons-gallery-img.blockons-galvenobox:hover:before{opacity:1}body.blockons-pro
+	.blockons-gallery-img.blockons-popup:hover:before{opacity:1}body.blockons-pro
 	.wp-block-blockons-image-gallery
-	.blockons-gallery-img.blockons-galvenobox.dark:before{background-color:rgba(0,0,0,.55);color:#fff}body.blockons-pro
+	.blockons-gallery-img.blockons-popup.icon-dark:before{background-color:rgba(0,0,0,.55);color:#fff}body.blockons-pro
 	.wp-block-blockons-image-gallery
-	.blockons-gallery-img.blockons-galvenobox.light:before{background-color:hsla(0,0%,100%,.45);box-shadow:0 0 6px rgba(0,0,0,.2);color:#000}body.blockons-pro
+	.blockons-gallery-img.blockons-popup.icon-light:before{background-color:hsla(0,0%,100%,.45);box-shadow:0 0 6px rgba(0,0,0,.2);color:#000}body.blockons-pro
 	.wp-block-blockons-image-gallery
-	.blockons-gallery-img.blockons-galvenobox.topleft:before{left:15px;top:15px}body.blockons-pro
+	.blockons-gallery-img.blockons-popup.icon-topleft:before{bottom:auto;left:5px;right:auto;top:5px}body.blockons-pro
 	.wp-block-blockons-image-gallery
-	.blockons-gallery-img.blockons-galvenobox.topright:before{right:15px;top:15px}body.blockons-pro
+	.blockons-gallery-img.blockons-popup.icon-topright:before{bottom:auto;left:auto;right:5px;top:5px}body.blockons-pro
 	.wp-block-blockons-image-gallery
-	.blockons-gallery-img.blockons-galvenobox.bottomleft:before{bottom:15px;left:15px}body.blockons-pro
+	.blockons-gallery-img.blockons-popup.icon-bottomleft:before{bottom:5px;left:5px;right:auto;top:auto}body.blockons-pro
 	.wp-block-blockons-image-gallery
-	.blockons-gallery-img.blockons-galvenobox.bottomright:before{bottom:15px;right:15px}body.blockons-pro
+	.blockons-gallery-img.blockons-popup.icon-bottomright:before{bottom:5px;left:auto;right:5px;top:auto}body.blockons-pro
 	.wp-block-blockons-image-gallery
-	.blockons-gallery-img.blockons-galvenobox.center:before{left:50%;margin:-16px 0 0 -16px;top:50%}body.blockons-pro
+	.blockons-gallery-img.blockons-popup.icon-center:before{bottom:auto;left:50%;margin:-16px 0 0 -16px;right:auto;top:50%}body.blockons-pro
 	.wp-block-blockons-image-gallery
-	.blockons-gallery-img.blockons-galvenobox.icon-one:before{content:"\f002"}body.blockons-pro
+	.blockons-gallery-img.blockons-popup.icon-one:before{content:"\f002"}body.blockons-pro
 	.wp-block-blockons-image-gallery
-	.blockons-gallery-img.blockons-galvenobox.icon-two:before{content:"\f065"}body.blockons-pro
+	.blockons-gallery-img.blockons-popup.icon-two:before{content:"\f065"}body.blockons-pro
 	.wp-block-blockons-image-gallery
-	.blockons-gallery-img.blockons-galvenobox.icon-three:before{content:"\f424"}body.blockons-pro
+	.blockons-gallery-img.blockons-popup.icon-three:before{content:"\f424"}body.blockons-pro
 	.wp-block-blockons-image-gallery
-	.blockons-gallery-img.blockons-galvenobox.icon-four:before{content:"\f31e"}body.blockons-pro
+	.blockons-gallery-img.blockons-popup.icon-four:before{content:"\f31e"}body.blockons-pro
 	.wp-block-blockons-image-gallery
-	.blockons-gallery-img.blockons-galvenobox.icon-five:before{content:"\2b"}body.blockons-pro
+	.blockons-gallery-img.blockons-popup.icon-five:before{content:"\2b"}body.blockons-pro
 	.wp-block-blockons-image-gallery
-	.blockons-gallery-img.blockons-galvenobox.icon-six:before{content:"\f047"}@media only screen and (max-width:920px){.wp-block-blockons-image-gallery .blockons-gallery.grid{grid-template-columns:repeat(3,1fr)!important}.wp-block-blockons-image-gallery
+	.blockons-gallery-img.blockons-popup.icon-six:before{content:"\f047"}@media only screen and (max-width:920px){.wp-block-blockons-image-gallery .blockons-gallery.grid{grid-template-columns:repeat(3,1fr)!important}.wp-block-blockons-image-gallery
 		.blockons-gallery.masonry
 		.blockons-gallery-item.masonry{margin:0 5px 10px!important;width:calc(33.3333% - 10px)!important}}@media only screen and (max-width:680px){.wp-block-blockons-image-gallery .blockons-gallery.grid{grid-template-columns:repeat(2,1fr)!important}.wp-block-blockons-image-gallery
 		.blockons-gallery.masonry

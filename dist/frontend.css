@@ -505,6 +505,101 @@
 	}
 }
 
+.blockons-siteby.left,
+.blockons-siteby.right {
+	position: fixed;
+	bottom: 12px;
+	z-index: 9999;
+	background-color: #fff;
+	-webkit-box-shadow: inset 0 0 0 1px rgb(0 0 0 / 15%), 0 1px 8px rgb(0 0 0 / 14%);
+	        box-shadow: inset 0 0 0 1px rgb(0 0 0 / 15%), 0 1px 8px rgb(0 0 0 / 14%);
+	border-radius: 4px;
+	width: 30px;
+	overflow: hidden;
+}
+.blockons-siteby.left {
+	left: 12px;
+}
+.blockons-siteby.right {
+	right: 12px;
+}
+.blockons-siteby .blockons-siteby-icon {
+	border-radius: 4px;
+	width: 30px;
+	height: 30px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	font-size: 16px;
+	color: #444;
+	cursor: pointer;
+}
+.blockons-siteby .blockons-siteby-block-wrap.icon {
+	position: absolute;
+	top: 0;
+	font-size: 13px;
+}
+.blockons-siteby .blockons-siteby-block.icon {
+	white-space: nowrap;
+	width: -webkit-fit-content;
+	width: -moz-fit-content;
+	width: fit-content;
+	height: 30px;
+	padding: 0 10px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	background-color: #fff;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 0 0 1px rgb(0 0 0 / 15%), 0 1px 8px rgb(0 0 0 / 14%);
+	        box-shadow: inset 0 0 0 1px rgb(0 0 0 / 15%), 0 1px 8px rgb(0 0 0 / 14%);
+	opacity: 0;
+	-webkit-transition: opacity 0.3s ease-in-out 0.1s;
+	transition: opacity 0.3s ease-in-out 0.1s;
+}
+.blockons-siteby.left .blockons-siteby-block-wrap.icon {
+	left: 100%;
+	padding: 0 0 0 4px;
+}
+.blockons-siteby.right .blockons-siteby-block-wrap.icon {
+	right: 100%;
+	padding: 0 4px 0 0;
+}
+.blockons-siteby:hover,
+.blockons-siteby.ison {
+	width: auto;
+	overflow: visible;
+}
+.blockons-siteby:hover .blockons-siteby-block,
+.blockons-siteby.ison .blockons-siteby-block {
+	opacity: 1;
+}
+.blockons-siteby .blockons-siteby-block.icon a {
+	display: inline-block;
+	margin: 0 4px;
+}
+.blockons-siteby .blockons-siteby-block.bottom {
+	-webkit-box-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+	        box-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+	text-align: center;
+	padding: 12px 10px;
+}
+.blockons-siteby .blockons-siteby-block.bottom .blockons-siteby-block a {
+	margin: 0;
+}
+
 /**
  * Loader
  */
@@ -579,7 +674,7 @@ body.blockons-page-loading {
 }
 body.blockons-page-loading::before {
 	display: block;
-	content: " ";
+	content: ' ';
 	background-color: inherit;
 	position: fixed;
 	top: 0;
@@ -774,8 +869,8 @@ body.admin-bar .blockons-page-loader {
 	color: inherit;
 	-webkit-transform: translate(-50%, -50%);
 	        transform: translate(-50%, -50%);
-	-webkit-font-feature-settings: "tnum";
-	        font-feature-settings: "tnum";
+	-webkit-font-feature-settings: 'tnum';
+	        font-feature-settings: 'tnum';
 	font-variant-numeric: tabular-nums;
 }
 
@@ -865,13 +960,17 @@ body.blockons-tooltips .blockons-tooltip {
 	padding: 6px 10px 10px;
 	text-align: left;
 	opacity: 0;
-	-webkit-transition: opacity 0.2s ease-in-out 0.15s, bottom 0.2s ease-in-out 0.15s,
+	-webkit-transition:
+		opacity 0.2s ease-in-out 0.15s,
+		bottom 0.2s ease-in-out 0.15s,
 		left 0.05s ease-in-out 0s;
-	transition: opacity 0.2s ease-in-out 0.15s, bottom 0.2s ease-in-out 0.15s,
+	transition:
+		opacity 0.2s ease-in-out 0.15s,
+		bottom 0.2s ease-in-out 0.15s,
 		left 0.05s ease-in-out 0s;
 }
 body.blockons-tooltips .blockons-tooltip .blockons-tooltip-angle {
-	content: "";
+	content: '';
 	position: absolute;
 	top: 100%;
 	left: 50%;
@@ -960,9 +1059,248 @@ body.blockons-tooltips .blockons-inline-tooltip.highlight {
 }
 body.blockons-tooltips .blockons-inline-tooltip.highlight::before {
 	display: inline-block;
-	content: "";
+	content: '';
 	width: 100%;
 	height: 100%;
 	opacity: 0.15;
+}
+/* -- Single Image Popups -- */
+body.blockons-popups .blockons-img-popup .blockons-popup-img {
+	position: relative;
+	cursor: pointer;
+	width: -webkit-fit-content;
+	width: -moz-fit-content;
+	width: fit-content;
+}
+body.blockons-popups .blockons-img-popup .blockons-popup-img img {
+	display: block;
+	margin: 0;
+}
+body.blockons-popups .blockons-img-popup .blockons-popup-img::before {
+	-webkit-box-shadow: 0 1px 5px rgb(0 0 0 / 20%);
+	        box-shadow: 0 1px 5px rgb(0 0 0 / 20%);
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	position: absolute;
+	z-index: 99;
+	border-radius: 3px;
+	width: 28px;
+	height: 28px;
+	font-size: 13px;
+	font-family: 'Font Awesome 6 Free';
+	font-weight: 900;
+	opacity: 0;
+	-webkit-transition: opacity 0.3s ease-in-out;
+	transition: opacity 0.3s ease-in-out;
+}
+body.blockons-popups .blockons-img-popup .blockons-popup-img:hover::before {
+	opacity: 1;
+}
+body.blockons-popups.global
+	.blockons-img-popup.global-off
+	.blockons-popup-img::before {
+	display: none !important;
+}
+
+/* - Icons - */
+body.blockons-popups .blockons-img-popup.blcks-one .blockons-popup-img::before,
+body.blockons-popups.global.blcks-one
+	.blockons-img-popup
+	.blockons-popup-img::before {
+	content: '\f002';
+}
+body.blockons-popups .blockons-img-popup.blcks-two .blockons-popup-img::before,
+body.blockons-popups.global.blcks-two
+	.blockons-img-popup
+	.blockons-popup-img::before {
+	content: '\f065';
+}
+body.blockons-popups
+	.blockons-img-popup.blcks-three
+	.blockons-popup-img::before,
+body.blockons-popups.global.blcks-three
+	.blockons-img-popup
+	.blockons-popup-img::before {
+	content: '\f424';
+}
+body.blockons-popups .blockons-img-popup.blcks-four .blockons-popup-img::before,
+body.blockons-popups.global.blcks-four
+	.blockons-img-popup
+	.blockons-popup-img::before {
+	content: '\f31e';
+}
+body.blockons-popups .blockons-img-popup.blcks-five .blockons-popup-img::before,
+body.blockons-popups.global.blcks-five
+	.blockons-img-popup
+	.blockons-popup-img::before {
+	content: '\2b';
+}
+body.blockons-popups .blockons-img-popup.blcks-six .blockons-popup-img::before,
+body.blockons-popups.global.blcks-six
+	.blockons-img-popup
+	.blockons-popup-img::before {
+	content: '\f047';
+}
+
+/* - Position - */
+body.blockons-popups
+	.blockons-img-popup.blcks-topleft
+	.blockons-popup-img::before,
+body.blockons-popups.global.blcks-topleft
+	.blockons-img-popup
+	.blockons-popup-img::before {
+	top: 5px;
+	left: 5px;
+	bottom: auto;
+	right: auto;
+}
+body.blockons-popups
+	.blockons-img-popup.blcks-topright
+	.blockons-popup-img::before,
+body.blockons-popups.global.blcks-topright
+	.blockons-img-popup
+	.blockons-popup-img::before {
+	top: 5px;
+	right: 5px;
+	bottom: auto;
+	left: auto;
+}
+body.blockons-popups
+	.blockons-img-popup.blcks-bottomleft
+	.blockons-popup-img::before,
+body.blockons-popups.global.blcks-bottomleft
+	.blockons-img-popup
+	.blockons-popup-img::before {
+	bottom: 5px;
+	left: 5px;
+	top: auto;
+	right: auto;
+}
+body.blockons-popups
+	.blockons-img-popup.blcks-bottomright
+	.blockons-popup-img::before,
+body.blockons-popups.global.blcks-bottomright
+	.blockons-img-popup
+	.blockons-popup-img::before {
+	bottom: 5px;
+	right: 5px;
+	top: auto;
+	left: auto;
+}
+body.blockons-popups
+	.blockons-img-popup.blcks-center
+	.blockons-popup-img::before,
+body.blockons-popups.global.blcks-center
+	.blockons-img-popup
+	.blockons-popup-img::before {
+	top: 50%;
+	left: 50%;
+	bottom: auto;
+	right: auto;
+	margin: -14px 0 0 -14px;
+}
+
+/* - Theme - */
+body.blockons-popups .blockons-img-popup.blcks-dark .blockons-popup-img::before,
+body.blockons-popups.global.blcks-dark
+	.blockons-img-popup
+	.blockons-popup-img::before {
+	background-color: rgb(0 0 0 / 45%);
+	color: #fff;
+}
+body.blockons-popups
+	.blockons-img-popup.blcks-light
+	.blockons-popup-img::before,
+body.blockons-popups.global.blcks-light
+	.blockons-img-popup
+	.blockons-popup-img::before {
+	background-color: rgb(255 255 255 / 40%);
+	color: #222;
+}
+/* -- Popup Color -- */
+body.blockons-pro.blockons-popups.popup-light
+	.swal2-container.blockons-popup-container.swal2-backdrop-show {
+	background: rgb(255 255 255 / 35%) !important;
+}
+body.blockons-pro.blockons-popups.popup-dark
+	.swal2-container.blockons-popup-container.swal2-backdrop-show {
+	background: rgb(0 0 0 / 40%) !important;
+}
+/**
+ * Sweetalert2 Design - THIS IS DUPLICATED IN editor.css
+ */
+.swal2-popup.blockons-popup-swal {
+	-webkit-box-shadow: 0 1px 20px rgb(0 0 0 / 18%);
+	        box-shadow: 0 1px 20px rgb(0 0 0 / 18%);
+	padding: 0;
+	position: relative;
+	max-width: 84%;
+}
+.swal2-popup.blockons-popup-swal button.swal2-close {
+	color: #000;
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	background-color: #fff !important;
+	border: 0;
+	border-radius: 3px;
+	width: 24px;
+	height: 24px;
+	font-size: 17px;
+}
+.swal2-popup.blockons-popup-swal .swal2-html-container {
+	padding: 0;
+	margin: 0;
+}
+/* .swal2-popup.blockons-popup-swal .blockons-popup-wrap {} */
+.swal2-popup.blockons-popup-swal .blockons-popup-wrap .blockons-popup-img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+	margin: 0;
+}
+.swal2-popup.blockons-popup-swal .blockons-popup-wrap p.blockons-popup-caption {
+	margin: 0;
+	padding: 15px 20px;
+	color: #fff;
+	font-size: 13px;
+	font-weight: normal;
+	letter-spacing: 0.1px;
+	line-height: 1.4;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgb(0 0 0 / 42%);
+}
+.swal2-popup.blockons-popup-swal .swal2-actions {
+	margin: 0;
+	padding: 0;
+	height: 0;
+}
+.swal2-popup.blockons-popup-swal .swal2-actions .blockons-popup-btn {
+	-webkit-box-shadow: none;
+	        box-shadow: none;
+	position: absolute;
+	top: 50%;
+	margin: -30px 0 0;
+	padding: 0;
+	width: 45px;
+	height: 60px;
+	background: none !important;
+	font-size: 36px;
+}
+.swal2-popup.blockons-popup-swal .swal2-actions .blockons-popup-btn.prev {
+	right: 100%;
+}
+.swal2-popup.blockons-popup-swal .swal2-actions .blockons-popup-btn.next {
+	left: 100%;
 }
 

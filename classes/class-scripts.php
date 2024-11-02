@@ -28,7 +28,7 @@ class Blockons {
     public $file;
 
     /**
-     * Constructor funtion
+     * Constructor function
      */
     public function __construct( $file = '', $version = BLOCKONS_PLUGIN_VERSION ) {
         $this->file = $file;
@@ -72,9 +72,9 @@ class Blockons {
         // Font Awesome Free
         wp_register_style(
             'blockons-fontawesome',
-            esc_url( BLOCKONS_PLUGIN_URL . 'assets/font-awesome/css/all.min.css' ),
-            array('dashicons'),
-            BLOCKONS_PLUGIN_VERSION
+            esc_url( 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css' ),
+            array(),
+            '6.5.1'
         );
         // Frontend
         wp_register_style(
@@ -86,7 +86,7 @@ class Blockons {
         wp_register_script(
             'blockons-frontend-script',
             esc_url( BLOCKONS_PLUGIN_URL . 'dist/frontend' . $suffix . '.js' ),
-            array('wp-i18n'),
+            array('wp-element', 'wp-i18n'),
             BLOCKONS_PLUGIN_VERSION,
             true
         );
@@ -104,7 +104,7 @@ class Blockons {
             wp_register_script(
                 'blockons-wc-mini-cart',
                 esc_url( BLOCKONS_PLUGIN_URL . 'assets/blocks/wc-mini-cart/cart.js' ),
-                array(),
+                array('wp-element'),
                 BLOCKONS_PLUGIN_VERSION
             );
             wp_localize_script( 'blockons-wc-mini-cart', 'wcCartObj', array(
@@ -117,7 +117,7 @@ class Blockons {
         wp_register_script(
             'blockons-search',
             esc_url( BLOCKONS_PLUGIN_URL . 'assets/blocks/search/search.js' ),
-            array(),
+            array('wp-element', 'wp-i18n'),
             BLOCKONS_PLUGIN_VERSION
         );
         wp_localize_script( 'blockons-search', 'searchObj', array(
@@ -184,37 +184,37 @@ class Blockons {
             BLOCKONS_PLUGIN_VERSION,
             true
         );
-        // Venobox Popup
+        // Sweetalert Popup
         wp_register_style(
-            'blockons-venobox-style',
-            esc_url( BLOCKONS_PLUGIN_URL . 'assets/venobox/venobox.min.css' ),
+            'blockons-animate-style',
+            esc_url( BLOCKONS_PLUGIN_URL . 'assets/popups/animate.min.css' ),
             array(),
             BLOCKONS_PLUGIN_VERSION
         );
+        wp_register_style(
+            'blockons-sweetalert-style',
+            esc_url( BLOCKONS_PLUGIN_URL . 'assets/popups/sweetalert2.min.css' ),
+            array('blockons-animate-style', 'blockons-fontawesome'),
+            BLOCKONS_PLUGIN_VERSION
+        );
         wp_register_script(
-            'blockons-venobox-script',
-            esc_url( BLOCKONS_PLUGIN_URL . 'assets/venobox/venobox.min.js' ),
+            'blockons-sweetalert-script',
+            esc_url( BLOCKONS_PLUGIN_URL . 'assets/popups/sweetalert2.all.min.js' ),
             array(),
             BLOCKONS_PLUGIN_VERSION,
             true
         );
-        wp_register_style(
-            'blockons-venopopup-style',
-            esc_url( BLOCKONS_PLUGIN_URL . 'dist/venopopup.min.css' ),
-            array('blockons-venobox-style', 'blockons-fontawesome'),
-            BLOCKONS_PLUGIN_VERSION
-        );
         wp_register_script(
-            'blockons-venopopup',
-            esc_url( BLOCKONS_PLUGIN_URL . 'dist/venopopup.min.js' ),
-            array('blockons-venobox-script'),
+            'blockons-image-block',
+            esc_url( BLOCKONS_PLUGIN_URL . 'dist/image.min.js' ),
+            array('blockons-sweetalert-script'),
             BLOCKONS_PLUGIN_VERSION,
             true
         );
         wp_register_script(
             'blockons-image-gallery',
             esc_url( BLOCKONS_PLUGIN_URL . 'dist/imagegallery.min.js' ),
-            array('blockons-frontend-script', 'blockons-venobox-script'),
+            array('wp-element', 'blockons-sweetalert-script'),
             BLOCKONS_PLUGIN_VERSION,
             true
         );
@@ -222,7 +222,7 @@ class Blockons {
         wp_register_script(
             'blockons-admin-settings-script',
             esc_url( BLOCKONS_PLUGIN_URL . 'dist/settings' . $suffix . '.js' ),
-            array('wp-i18n'),
+            array('wp-element', 'wp-i18n'),
             BLOCKONS_PLUGIN_VERSION,
             true
         );
@@ -237,6 +237,9 @@ class Blockons {
             'isAdmin'          => (bool) is_admin(),
             'upgradeUrl'       => esc_url( $blockons_fs->get_upgrade_url() ),
         ) );
+        if ( isset( $_SERVER['REQUEST_URI'] ) && strpos( $_SERVER['REQUEST_URI'], 'fontawesome/webfonts/' ) !== false ) {
+            header( 'Access-Control-Allow-Origin: *' );
+        }
     }
 
     // End blockons_register_scripts ()
@@ -258,9 +261,8 @@ class Blockons {
             'isPremium'       => $isPro,
         ) );
         if ( isset( $blockonsOptions->imagepopups->enabled ) && $blockonsOptions->imagepopups->enabled == true ) {
-            wp_enqueue_style( 'blockons-venobox-style' );
-            wp_enqueue_style( 'blockons-venopopup-style' );
-            wp_enqueue_script( 'blockons-venopopup' );
+            wp_enqueue_style( 'blockons-sweetalert-style' );
+            wp_enqueue_script( 'blockons-image-block' );
         }
         if ( $isPro ) {
             // Block Extension - Visibility CSS
@@ -276,10 +278,22 @@ class Blockons {
                 wp_enqueue_script( 'blockons-aos-script' );
                 wp_add_inline_script( 'blockons-aos-script', 'AOS.init();' );
             }
+            // Block Extension - Product Quick View
+            if ( isset( $blockonsOptions->quickview->enabled ) && $blockonsOptions->quickview->enabled == true ) {
+                wp_enqueue_style( 'blockons-quickview-style' );
+                wp_enqueue_script( 'blockons-quickview' );
+                wp_localize_script( 'blockons-quickview', 'blockonsQuickviewObj', array(
+                    'apiUrl'           => esc_url( get_rest_url() ),
+                    'quickviewOptions' => $blockonsOptions->quickview,
+                    'ajaxurl'          => admin_url( 'admin-ajax.php' ),
+                    'nonce'            => wp_create_nonce( 'blockons_quickview_nonce' ),
+                    'wc_ajax_url'      => WC_AJAX::get_endpoint( '%%endpoint%%' ),
+                ) );
+            }
             /*
              * WOOCOMMERCE ADDONS
              */
-            // WC Sise Cart
+            // WC Side Cart
             if ( Blockons_Admin::blockons_is_plugin_active( 'woocommerce.php' ) ) {
                 if ( isset( $blockonsOptions->sidecart->enabled ) && $blockonsOptions->sidecart->enabled == true ) {
                     wp_register_style(
@@ -360,20 +374,31 @@ class Blockons {
         wp_register_style(
             'blockons-admin-editor-style',
             esc_url( BLOCKONS_PLUGIN_URL . 'dist/editor' . $suffix . '.css' ),
-            array('blockons-fontawesome'),
+            array('blockons-fontawesome', 'dashicons'),
             BLOCKONS_PLUGIN_VERSION
         );
         wp_enqueue_style( 'blockons-admin-editor-style' );
         wp_register_script(
             'blockons-admin-editor-script',
             esc_url( BLOCKONS_PLUGIN_URL . 'dist/editor' . $suffix . '.js' ),
-            array('wp-edit-post', 'wp-rich-text'),
+            array(
+                'wp-edit-post',
+                'wp-rich-text',
+                'wp-blocks',
+                'wp-i18n',
+                'wp-element',
+                'wp-editor',
+                'wp-components',
+                'wp-data',
+                'lodash'
+            ),
             BLOCKONS_PLUGIN_VERSION,
             true
         );
         wp_localize_script( 'blockons-admin-editor-script', 'blockonsEditorObj', array(
             'isPremium'       => $isPro,
             'blockonsOptions' => $blockonsOptions,
+            'adminUrl'        => esc_url( admin_url() ),
             'apiUrl'          => esc_url( get_rest_url() ),
             'pluginUrl'       => esc_url( BLOCKONS_PLUGIN_URL ),
             'upgradeUrl'      => esc_url( $blockons_fs->get_upgrade_url() ),
@@ -425,6 +450,7 @@ class Blockons {
     public static function blockonsDefaults() {
         $initialSettings = array(
             "blocks"          => array(
+                "table_of_contents"   => true,
                 "content_selector"    => true,
                 "tabs"                => true,
                 "count_down_timer"    => true,
@@ -471,11 +497,11 @@ class Blockons {
             ),
             "imagepopups"     => array(
                 "enabled"    => false,
+                "enable_all" => false,
                 "icon"       => "one",
                 "iconpos"    => "topleft",
-                "theme"      => "dark",
+                "iconcolor"  => "dark",
                 "popuptheme" => "dark",
-                "captionpos" => "top",
             ),
             "pageloader"      => array(
                 "enabled"       => false,
@@ -495,6 +521,23 @@ class Blockons {
                 "position" => "top",
                 "height"   => 6,
                 "has_bg"   => true,
+            ),
+            "siteby"          => array(
+                "enabled"     => false,
+                "position"    => "right",
+                "icon"        => "fa-link",
+                "cicon"       => "fa-leaf",
+                "text"        => __( "Site built by (blockons[*https://blockons.com/])", "blockons" ),
+                "size"        => 30,
+                "iconbgcolor" => "#FFF",
+                "iconcolor"   => "#444",
+                "bgcolor"     => "#FFF",
+                "color"       => "#444",
+            ),
+            "quickview"       => array(
+                "enabled" => false,
+                "style"   => "one",
+                "text"    => __( "Quick View", "blockons" ),
             ),
             "sidecart"        => array(
                 "enabled"         => false,
